@@ -2,10 +2,10 @@
   "name": "parcel-project-template",
   "version": "2.0.0",
   "description": "hw",
-  "homepage": "https://goitacademy.github.io/hw-10",
+  "homepage": "https://kralinskyi.github.io/API-fetch-templates",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /hw-10/"
+    "build": "parcel build src/*.html --public-url /API-fetch-templates/"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
     "url": "https://github.com/goitacademy/parcel-project-template/issues"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6"
   },
