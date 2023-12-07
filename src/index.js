@@ -7,7 +7,7 @@ const params = {
 
 const options = {
   q: 'random',
-  per_page: 18,
+  per_page: 20,
   image_type: 'photo',
   page: 1,
 };
