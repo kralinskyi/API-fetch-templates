@@ -44,14 +44,14 @@ function fetchPhotosFunction() {
 
   // Як приклад  + спінер потрібно
 
-  apiPixabey.fetchPhotos().then(({ hits, total, totalHits }) => {
+  apiPixabey.fetchPhotos().then(({ hits, total }) => {
     // Перевірка, чи потрібна кнопка LOAD MORE
     if (total <= hits.length) {
       loadMoreBtn.hidden = true;
     }
 
     loadMoreBtn.disable = true;
-    loadMoreBtn.textContent = 'LOADING>>>';
+    loadMoreBtn.textContent = 'LOADING>>>'; // loader краще
 
     photosListEl.insertAdjacentHTML('beforeend', markupFetch(hits));
 

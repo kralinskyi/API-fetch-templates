@@ -18,13 +18,11 @@ export default class ApiPixabay {
       page: this.page,
     });
 
-    const url = `${BASE_URL}?${params.toString()}`;
-
-    return fetch(url)
+    return fetch(`${BASE_URL}?${params}`)
       .then(response => response.json())
-      .then(({ hits, total, totalHits }) => {
+      .then(({ hits, total }) => {
         this.incrementPage();
-        return { hits, total, totalHits };
+        return { hits, total };
       })
       .catch(console.log);
   }
