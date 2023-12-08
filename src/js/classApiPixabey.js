@@ -23,8 +23,7 @@ export default class ApiPixabay {
       .then(({ hits, total }) => {
         this.incrementPage();
         return { hits, total };
-      })
-      .catch(console.log);
+      });
   }
 
   get query() {
