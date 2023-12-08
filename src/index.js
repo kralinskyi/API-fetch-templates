@@ -1,1 +1,1 @@
-import './js/pixabeyApi.js';
+import './API_Pixabey/js/pixabeyApi';
