@@ -4,7 +4,6 @@ const formEl = document.querySelector('.form');
 const photosListEl = document.querySelector('.photos');
 const loadMoreBtn = document.querySelector('.load-more-btn');
 const findPhotosBtn = document.querySelector('.js-form-btn');
-const inputEl = document.querySelector('.form-input');
 
 const apiPixabey = new ApiPixabey();
 loadMoreBtn.hidden = true;
@@ -21,6 +20,7 @@ function onFindPhotosClick(e) {
   apiPixabey.query = searchQuery.trim(); // записуємо в екз. класу query без пробілів
 
   apiPixabey.resetPage(); // При submit завжди починаємо з першої сторінки
+  loadMoreBtn.hidden = true;
   clearPhotosContainer(); //Очищуємо попередні результати запиту
 
   fetchPhotosFunction(); // fetch query
@@ -45,20 +45,21 @@ function fetchPhotosFunction() {
   apiPixabey
     .fetchPhotos()
     .then(({ hits, total }) => {
+      // Перевірка, чи потрібна кнопка LOAD MORE
+
+      if (
+        total > hits.length ||
+        hits.length * apiPixabey.page < total ||
+        !total
+      ) {
+        loadMoreBtn.hidden = false;
+      }
+
       if (!hits.length) {
         loadMoreBtn.hidden = true;
 
         alert("Can't find such photos");
         throw new Error('bad request');
-      }
-
-      // Перевірка, чи потрібна кнопка LOAD MORE
-      if (
-        total <= hits.length ||
-        hits.length * apiPixabey.page >= total ||
-        total === 0
-      ) {
-        loadMoreBtn.hidden = true;
       }
 
       loadMoreBtn.disable = true;
