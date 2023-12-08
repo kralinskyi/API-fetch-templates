@@ -77,3 +77,7 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.is-hidden {
+  display: none;
+}
