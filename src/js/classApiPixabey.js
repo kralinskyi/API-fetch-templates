@@ -1,4 +1,4 @@
-export default class ApiPixabey {
+export default class ApiPixabay {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
@@ -6,20 +6,27 @@ export default class ApiPixabey {
     this.image_type = 'photo';
   }
 
-  // const params = new URLSearchParams({})
-
   fetchPhotos() {
     const BASE_URL = 'https://pixabay.com/api/';
     const API_KEY = '34842285-9ef26a99ee49cc306160c27d8';
 
-    return fetch(
-      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=${this.image_type}&per_page=${this.per_page}&page=${this.page}`
-    )
+    const params = new URLSearchParams({
+      key: API_KEY,
+      q: this.searchQuery,
+      image_type: this.image_type,
+      per_page: this.per_page,
+      page: this.page,
+    });
+
+    const url = `${BASE_URL}?${params.toString()}`;
+
+    return fetch(url)
       .then(response => response.json())
-      .then(({ hits }) => {
-        this.incrementPage(); // якщо успішно - збільшуємо сторінку
-        return hits;
-      });
+      .then(({ hits, total, totalHits }) => {
+        this.incrementPage();
+        return { hits, total, totalHits };
+      })
+      .catch(console.log);
   }
 
   get query() {

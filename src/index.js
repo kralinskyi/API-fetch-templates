@@ -11,28 +11,21 @@ loadMoreBtn.hidden = true;
 const apiPixabey = new ApiPixabey();
 
 formEl.addEventListener('submit', onFindPhotosClick);
-loadMoreBtn.addEventListener('click', onMoreLoadBtnClick);
+loadMoreBtn.addEventListener('click', fetchPhotosFunction);
 
 function onFindPhotosClick(e) {
   e.preventDefault();
-  // findPhotosBtn.disabled = false;
 
   const searchQuery = e.target.elements.query.value;
   if (!searchQuery.trim()) return;
 
   apiPixabey.query = searchQuery.trim();
 
-  loadMoreBtn.hidden = false;
-  loadMoreBtn.disable = true;
-
   apiPixabey.resetPage(); // При submit завжди починаємо з першої сторінки
-  apiPixabey.fetchPhotos().then(hits => {
-    clearPhotosContainer(); //Очищуємо попередні результати запиту
+  clearPhotosContainer(); //Очищуємо попередні результати запиту
 
-    photosListEl.insertAdjacentHTML('beforeend', markupFetch(hits));
-
-    loadMoreBtn.disable = false;
-  });
+  fetchPhotosFunction();
+  loadMoreBtn.hidden = false;
 }
 
 function markupFetch(arr) {
@@ -46,13 +39,25 @@ function markupFetch(arr) {
     .join('');
 }
 
-function onMoreLoadBtnClick() {
-  loadMoreBtn.disable = true;
-  loadMoreBtn.textContent = 'LOADING>>>'; // Як приклад  + спінер потрібно
-  apiPixabey.fetchPhotos().then(hits => {
+function fetchPhotosFunction() {
+  findPhotosBtn.disabled = true;
+
+  // Як приклад  + спінер потрібно
+
+  apiPixabey.fetchPhotos().then(({ hits, total, totalHits }) => {
+    // Перевірка, чи потрібна кнопка LOAD MORE
+    if (total <= hits.length) {
+      loadMoreBtn.hidden = true;
+    }
+
+    loadMoreBtn.disable = true;
+    loadMoreBtn.textContent = 'LOADING>>>';
+
     photosListEl.insertAdjacentHTML('beforeend', markupFetch(hits));
+
     loadMoreBtn.disable = false;
     loadMoreBtn.textContent = 'Load more';
+    findPhotosBtn.disabled = false;
   });
 }
 
