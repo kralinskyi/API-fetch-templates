@@ -73,7 +73,7 @@ function fetchPhotosFunction() {
     })
     .catch(error => {
       loadMoreBtn.hidden = true;
-      console.error(error);
+      console.error(error.message);
       findPhotosBtn.disabled = false;
     });
 }

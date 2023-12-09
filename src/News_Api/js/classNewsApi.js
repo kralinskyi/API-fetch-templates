@@ -39,6 +39,8 @@ export default class NewsApi {
         if (!response.ok) {
           throw new Error('Error!');
         }
+
+        this.page += 1;
         return response.json();
       })
       .catch(error => console.error('Error fetching news:', error));
@@ -50,5 +52,9 @@ export default class NewsApi {
 
   set searchQuery(newQuery) {
     this.query = newQuery;
+  }
+
+  resetPage() {
+    this.page = 1;
   }
 }
