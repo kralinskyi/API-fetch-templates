@@ -81,3 +81,61 @@ body {
 .is-hidden {
   display: none;
 }
+
+/* Стилі для галереї новин */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Гнучкий розмір колонок */
+  gap: 20px; /* Відступ між карточками */
+  list-style: none;
+  padding: 0;
+}
+
+/* Стилі для кожної карточки новин */
+.news-card {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.news-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.news-details {
+  padding: 20px;
+}
+
+.news-title {
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.news-author,
+.news-publishedAt {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 5px;
+}
+
+.news-description {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.news-url {
+  display: block;
+  text-align: right;
+  margin-top: 10px;
+  color: blue; /* Ось тут можна задати колір для посилань */
+  text-decoration: none;
+}
