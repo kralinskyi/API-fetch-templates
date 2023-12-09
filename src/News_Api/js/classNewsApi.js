@@ -12,9 +12,16 @@ export default class NewsApi {
   }
 
   fetchNews() {
+    const now = new Date(); // Поточна дата і час
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+
+    const formattedYesterday = yesterday.toISOString().slice(0, 10);
+    const formattedToday = now.toISOString().slice(0, 10);
+
     const params = new URLSearchParams({
-      from: Date.now(),
-      to: Date.now(),
+      from: formattedYesterday,
+      to: formattedToday,
       sortBy: 'popularity',
       pageSize: this.pageSize,
       q: this.query,
