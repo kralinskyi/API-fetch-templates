@@ -44,6 +44,7 @@ export default class ApiPixabay {
   get query() {
     return this.searchQuery;
   }
+
   set query(newQuery) {
     this.searchQuery = newQuery;
   }

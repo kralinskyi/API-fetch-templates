@@ -11,7 +11,7 @@ const fetchHotNews = new NewsApi();
 form.addEventListener('submit', handleFindNewsBtn);
 loadMoreNewsBtn.addEventListener('click', handleLoadNewsBtn);
 
-loadMoreNewsBtn.hidden = true;
+// loadMoreNewsBtn.hidden = true;
 
 function markupNews(arr) {
   return arr

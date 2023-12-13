@@ -5,7 +5,7 @@ const photosListEl = document.querySelector('.photos');
 const loadMoreBtn = document.querySelector('.load-more-btn');
 const findPhotosBtn = document.querySelector('.js-form-btn');
 
-loadMoreBtn.hidden = true;
+// loadMoreBtn.hidden = true;
 const apiPixabay = new ApiPixabay();
 
 formEl.addEventListener('submit', onFindPhotosClick);
@@ -16,7 +16,8 @@ function onFindPhotosClick(e) {
 
   const searchQuery = e.target.elements.query.value;
 
-  if (!searchQuery.trim()) return;
+  if (!searchQuery.trim()) return; // alert...
+
   apiPixabay.query = searchQuery.trim(); // записуємо в екз. класу query без пробілів
 
   apiPixabay.resetPage(); // При submit завжди починаємо з першої сторінки
