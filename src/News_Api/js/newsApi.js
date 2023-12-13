@@ -60,37 +60,37 @@ function handleFindNewsBtn(e) {
   handleLoadNewsBtn();
 }
 
-function handleLoadNewsBtn() {
-  findNewsBtn.disabled = true;
+async function handleLoadNewsBtn() {
+  try {
+    findNewsBtn.disabled = true;
 
-  fetchHotNews
-    .fetchNews()
-    .then(news => {
-      const { articles, totalResults } = news;
+    const news = await fetchHotNews.fetchNews();
 
-      if (totalResults > articles.length) {
-        loadMoreNewsBtn.hidden = false;
-      }
-      if (!totalResults) {
-        loadMoreNewsBtn.hidden = true;
+    const { articles, totalResults } = news;
 
-        alert("Can't find such news");
-        throw new Error('bad request');
-      }
-      loadMoreNewsBtn.disable = true;
-      loadMoreNewsBtn.textContent = 'LOADING>>>';
-
-      newsGallery.insertAdjacentHTML('beforeend', markupNews(articles));
-
-      loadMoreNewsBtn.disable = false;
-      loadMoreNewsBtn.textContent = 'Load more';
-      findNewsBtn.disabled = false;
-    })
-    .catch(error => {
+    if (totalResults > articles.length) {
+      loadMoreNewsBtn.hidden = false;
+    }
+    if (!totalResults) {
       loadMoreNewsBtn.hidden = true;
-      console.error(error);
-      findNewsBtn.disabled = false;
-    });
+
+      alert("Can't find such news");
+      throw new Error('bad request');
+    }
+
+    loadMoreNewsBtn.disable = true;
+    loadMoreNewsBtn.textContent = 'LOADING>>>';
+
+    newsGallery.insertAdjacentHTML('beforeend', markupNews(articles));
+
+    loadMoreNewsBtn.disable = false;
+    loadMoreNewsBtn.textContent = 'Load more';
+    findNewsBtn.disabled = false;
+  } catch (error) {
+    loadMoreNewsBtn.hidden = true;
+    console.error(error);
+    findNewsBtn.disabled = false;
+  }
 }
 
 function clearNewsContainer() {
