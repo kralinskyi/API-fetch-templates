@@ -6,12 +6,12 @@ const findNewsBtn = document.querySelector('.js-form-btn');
 const loadMoreNewsBtn = document.querySelector('.js-load-more-news-btn');
 
 findNewsBtn.textContent = 'Find news';
+const fetchHotNews = new NewsApi();
 
 form.addEventListener('submit', handleFindNewsBtn);
 loadMoreNewsBtn.addEventListener('click', handleLoadNewsBtn);
 
 loadMoreNewsBtn.hidden = true;
-const fetchHotNews = new NewsApi();
 
 function markupNews(arr) {
   return arr
@@ -27,7 +27,7 @@ function markupNews(arr) {
         <div class="news-details">
           <h2 class="news-title">${title}</h2>
           <p class="news-author">${author}</p>
-          <p class="news-publishedAt">Published at: ${publishedAt}</p>
+          <p class="news-publishedAt">Published at: ${dateFix(publishedAt)}</p>
           <p class="news-description">${description}</p>
           <a
             href="${url}"
@@ -95,4 +95,21 @@ async function handleLoadNewsBtn() {
 
 function clearNewsContainer() {
   newsGallery.innerHTML = '';
+}
+
+function dateFix(incomingDate) {
+  const dateString = incomingDate;
+  const date = new Date(dateString);
+
+  // Отримання різних компонентів дати (день, місяць, рік, година, хвилина)
+  const year = date.getFullYear();
+  const month = ('0' + (date.getMonth() + 1)).slice(-2); // Додаємо 1 до місяця, оскільки місяці в Date починаються з 0
+  const day = ('0' + date.getDate()).slice(-2);
+  const hours = ('0' + date.getHours()).slice(-2);
+  const minutes = ('0' + date.getMinutes()).slice(-2);
+
+  // Форматування дати у потрібний вам формат ('YYYY-MM-DD HH:mm')
+  const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+  return formattedDate;
 }

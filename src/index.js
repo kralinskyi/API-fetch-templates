@@ -1,2 +1,2 @@
-// import './API_Pixabey/js/pixabeyApi';
-// import './News_Api/js/newsApi';
+// import './API_Pixabey/js/pixabayApi';
+import './News_Api/js/newsApi';

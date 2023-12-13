@@ -12,42 +12,37 @@ export default class NewsApi {
   }
 
   async fetchNews() {
-    try {
-      const now = new Date(); // Поточна дата і час
-      const yesterday = new Date(now);
-      yesterday.setDate(now.getDate() - 1);
+    const now = new Date(); // Поточна дата і час
+    const yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
 
-      const formattedYesterday = yesterday.toISOString().slice(0, 10);
-      const formattedToday = now.toISOString().slice(0, 10);
+    const formattedYesterday = yesterday.toISOString().slice(0, 10);
+    const formattedToday = now.toISOString().slice(0, 10);
 
-      const params = new URLSearchParams({
-        from: formattedYesterday,
-        to: formattedToday,
-        sortBy: 'popularity',
-        pageSize: this.pageSize,
-        q: this.query,
-        page: this.page,
-      });
+    const params = new URLSearchParams({
+      from: formattedYesterday,
+      to: formattedToday,
+      sortBy: 'popularity',
+      pageSize: this.pageSize,
+      q: this.query,
+      page: this.page,
+    });
 
-      const url = `${this.BASE_URL}?${params.toString()}`;
+    const url = `${this.BASE_URL}?${params.toString()}`;
 
-      const headers = {
-        'X-Api-Key': this.apiKey,
-      };
+    const headers = {
+      'X-Api-Key': this.apiKey,
+    };
 
-      const response = await fetch(url, { headers });
+    const response = await fetch(url, { headers });
 
-      if (!response.ok) {
-        throw new Error('Error!');
-      }
-
-      const responseData = await response.json();
-      this.page += 1;
-      return responseData;
-    } catch (error) {
-      console.error('Error fetching news:', error);
-      throw error
+    if (!response.ok) {
+      throw new Error('Error!');
     }
+
+    const responseData = await response.json();
+    this.page += 1;
+    return responseData;
   }
 
   get searchQuery() {
